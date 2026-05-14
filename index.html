@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Марина Тарасюк</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Unbounded:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f2f0e8;
+    --dark: #1e2018;
+    --warm: #8a9a5b;
+    --mid: #5a6340;
+    --light: #e4e8d8;
+    --olive-deep: #2c3020;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-label {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 14vw, 100px);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.25s forwards;
+  }
+
+  .hero-name em { font-style: italic; color: var(--warm); }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--mid);
+    max-width: 340px;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-creds {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.55s forwards;
+  }
+  .cred { display: flex; flex-direction: column; gap: 4px; }
+
+  .cred-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--warm);
+    line-height: 1;
+  }
+
+  .cred-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--mid);
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--warm), transparent);
+    opacity: 0.4;
+    margin: 0 32px;
+    width: calc(100% - 64px);
+  }
+
+  section { padding: 80px 32px; }
+
+  .section-label {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .about-text {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--dark);
+    margin-bottom: 32px;
+  }
+
+  .about-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .about-list li {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--mid);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .about-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--warm);
+  }
+
+  .pains-bg { background: var(--dark); color: var(--cream); }
+  .pains-bg .section-label { color: var(--warm); }
+
+  .pains-intro {
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--light);
+    margin-bottom: 40px;
+    opacity: 0.8;
+  }
+
+  .pains-grid { display: grid; gap: 2px; }
+
+  .pain-item {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(138,154,91,0.15);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--light);
+    line-height: 1.4;
+  }
+
+  .pain-item:last-child { border-bottom: none; }
+  .services-stack { display: flex; flex-direction: column; gap: 2px; }
+
+  .service-card {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--warm);
+  }
+
+  .service-card.light {
+    background: var(--light);
+    color: var(--dark);
+  }
+
+  .service-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--warm);
+    margin-bottom: 16px;
+  }
+
+  .service-title {
+    font-size: clamp(28px, 7vw, 44px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .service-price {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--warm);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .service-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.65;
+    opacity: 0.75;
+    margin-bottom: 28px;
+  }
+
+  .service-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .service-includes li {
+    font-size: 15px;
+    font-weight: 300;
+    padding-left: 18px;
+    position: relative;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  .service-includes li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--warm);
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .weeks { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
+
+  .week {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(138,154,91,0.15);
+  }
+
+  .week:last-child { border-bottom: none; }
+
+  .week-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--warm);
+    letter-spacing: 0.2em;
+    padding-top: 3px;
+    min-width: 52px;
+  }
+
+  .week-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    color: var(--warm);
+    font-family: 'Unbounded', sans-serif;
+  }
+
+  .week-desc {
+    font-size: 15px;
+    font-weight: 300;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid var(--warm);
+    color: var(--warm);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-solid { background: var(--warm); color: var(--dark); }
+
+  .yt-section {
+    background: var(--olive-deep);
+    padding: 80px 32px;
+    text-align: center;
+    border-top: 1px solid rgba(138,154,91,0.3);
+  }
+
+  .yt-title {
+    font-size: clamp(32px, 8vw, 56px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+
+  .yt-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--mid);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .final-cta { padding: 100px 32px; text-align: center; }
+
+  .final-quote {
+    font-size: clamp(26px, 6vw, 42px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .final-quote em { color: var(--warm); font-style: normal; }
+
+  .final-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--mid);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .btn-row { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+
+  footer {
+    padding: 40px 32px;
+    border-top: 1px solid rgba(138,154,91,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--mid);
+  }
+
+  .footer-tg { font-size: 14px; color: var(--warm); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-label">Психолог · Ментор · @maritarasiuk</div>
+  <h1 class="hero-name">Марина<br><em>Тарасюк</em></h1>
+  <p class="hero-sub">Работаю с теми, кто устал жить в режиме постоянного доказывания — себе и другим.</p>
+  <div class="hero-creds">
+    <div class="cred">
+      <span class="cred-num">7+</span>
+      <span class="cred-text">лет личной<br>терапии</span>
+    </div>
+    <div class="cred">
+      <span class="cred-num">4+</span>
+      <span class="cred-text">года<br>практики</span>
+    </div>
+    <div class="cred">
+      <span class="cred-num">10+</span>
+      <span class="cred-text">реконструкций<br>бизнесов</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="reveal">
+  <div class="section-label">Обо мне</div>
+  <p class="about-text">
+    Международная экономика, магистр — 2014–2019.<br>Дипломная работа на английском. Академический обмен в Испании.
+  </p>
+  <p class="about-text">
+    Психология, магистр — 2023–2025.
+  </p>
+  <p class="about-text" style="font-size:18px; color: var(--mid);">
+    Прошла путь от неуверенности к внутренней устойчивости — и помогаю пройти его другим. Быстро и без иллюзий.
+  </p>
+  <ul class="about-list">
+    <li>Спикер. Выступала перед 100+ людьми</li>
+    <li>10+ успешных реконструкций бизнесов</li>
+    <li>Большой опыт построения межличностных отношений с результатом для обеих сторон</li>
+    <li>Объясняю сложные вещи без воды</li>
+  </ul>
+</section>
+<section class="pains-bg reveal">
+  <div class="section-label">Запросы с которыми работаю</div>
+  <div class="pains-grid">
+    <div class="pain-item">Перфекционизм и прокрастинация</div>
+    <div class="pain-item">Тревога и страх ошибки</div>
+    <div class="pain-item">Отсутствие внутренней опоры</div>
+    <div class="pain-item">Синдром самозванца</div>
+    <div class="pain-item">Сложности в отношениях и границах</div>
+    <div class="pain-item">Зависимости</div>
+    <div class="pain-item">Ощущение потолка — в карьере, доходе, себе</div>
+  </div>
+</section>
+
+<section style="padding: 0; background: var(--cream);">
+  <div style="padding: 40px 32px; background: var(--olive-deep); border-top: 1px solid rgba(138,154,91,0.3); border-bottom: 1px solid rgba(138,154,91,0.3);">
+    <div class="section-label reveal" style="color: var(--warm); margin-bottom: 0;">Услуги</div>
+  </div>
+
+  <div class="services-stack">
+
+    <div class="service-card light reveal">
+      <div class="service-num" style="color: var(--warm);">01 · Менторство</div>
+      <h2 class="service-title" style="color: var(--dark);">Менторство по<br>самоценности</h2>
+      <div class="service-price">800 $</div>
+      <p class="service-desc" style="color: var(--mid);">
+        Месяц интенсивной работы. Ежедневный контакт. Без мягких формулировок — смотрим на реальность как она есть.
+      </p>
+      <ul class="service-includes" style="color: var(--dark);">
+        <li>8 встреч</li>
+        <li>Поддержка в Telegram на протяжении всей работы</li>
+        <li>Домашние задания: действия, трекинг, практики</li>
+        <li>Проработка страхов, установок и ограничивающих убеждений</li>
+        <li>Инструменты, которые работают за пределами сессий</li>
+      </ul>
+      <div class="weeks">
+        <div class="week">
+          <div class="week-num">НЕД 1</div>
+          <div class="week-content">
+            <div class="week-title">Встреча с собой</div>
+            <div class="week-desc">Осознать, кто ты без фильтров. Определить реальность.</div>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-num">НЕД 2</div>
+          <div class="week-content">
+            <div class="week-title">Голос в голове</div>
+            <div class="week-desc">Вычищаем внутреннего критика. Меняем голос страха на крик поддержки.</div>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-num">НЕД 3</div>
+          <div class="week-content">
+            <div class="week-title">Тело и границы</div>
+            <div class="week-desc">Вернуть тело в процесс жизни. Учимся определять и удерживать границы.</div>
+          </div>
+        </div>
+        <div class="week">
+          <div class="week-num">НЕД 4</div>
+          <div class="week-content">
+            <div class="week-title">Проявление в мире</div>
+            <div class="week-desc">Начинаем транслировать внутреннюю ценность вовне.</div>
+          </div>
+        </div>
+      </div>
+      <a href="https://t.me/maritarasiuk" class="btn" style="border-color: var(--dark); color: var(--dark);"><span>Записаться</span></a>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">02 · Работа без рамок</div>
+      <h2 class="service-title">Работа<br>без рамок</h2>
+      <div class="service-price">2 000 $</div>
+      <p class="service-desc">
+        Работа без ограничений по запросу. Любая тема — личная, профессиональная, отношения, идентичность. Перед началом — обязательная встреча.
+      </p>
+      <ul class="service-includes">
+        <li>30 дней работы</li>
+        <li>Встречи 2 раза в неделю</li>
+        <li>Поддержка 24/7 — ответы на все вопросы в процессе</li>
+        <li>Любой запрос, любая глубина</li>
+        <li>Индивидуальный формат под задачу</li>
+      </ul>
+      <a href="https://t.me/maritarasiuk" class="btn"><span>Написать</span></a>
+    </div>
+    <div class="service-card light reveal">
+      <div class="service-num" style="color: var(--warm);">03 · Марафон</div>
+      <h2 class="service-title" style="color: var(--dark);">Ценность.<br><em style="color:var(--warm);">Точка отсчёта</em></h2>
+      <div class="service-price">300 $</div>
+      <p class="service-desc" style="color: var(--mid);">
+        Месячная программа для тех, кто хочет перестать жить в режиме «я недостаточно». Работа с самооценкой, голосом, границами и ежедневным проявлением себя.
+      </p>
+      <ul class="service-includes" style="color: var(--dark);">
+        <li>Вводная встреча — 60 минут</li>
+        <li>Ежедневные практики и трекинг</li>
+        <li>Личный чат на весь период</li>
+        <li>Работа с установками, страхами и сопротивлением</li>
+      </ul>
+      <a href="https://t.me/maritarasiuk" class="btn" style="border-color: var(--dark); color: var(--dark);"><span>Записаться</span></a>
+    </div>
+
+  </div>
+</section>
+
+<section class="yt-section reveal">
+  <div class="section-label">YouTube</div>
+  <p class="yt-title">Смотри,<br>как я думаю</p>
+  <p class="yt-sub">О психологии, самоценности и внутренних механизмах — без упрощений.</p>
+  <a href="https://youtube.com/@marinatarasyuk" target="_blank" class="btn btn-solid"><span>Открыть канал</span></a>
+</section>
+
+<section class="final-cta reveal">
+  <p class="final-quote">
+    Ты не сломана.<br>
+    Ты просто потеряла<br><em>точку опоры</em>.
+  </p>
+  <p class="final-sub">Мы её найдём.</p>
+  <p class="final-sub" style="font-size:15px; max-width:360px; margin: 0 auto 40px; line-height:1.7;">
+    60 минут один на один. Разбираем запрос, смотрим на ситуацию честно, определяем направление работы. Без воды и общих слов.
+  </p>
+  <p class="final-sub" style="font-family:'Unbounded',sans-serif; font-size:11px; letter-spacing:0.2em; color:var(--warm); margin-bottom:12px;">100 €</p>
+  <div class="btn-row">
+    <a href="https://t.me/maritarasiuk" target="_blank" class="btn btn-solid"><span>Записаться на консультацию</span></a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">МАРИНА ТАРАСЮК · ПСИХОЛОГ · МЕНТОР</span>
+  <a href="https://t.me/maritarasiuk" class="footer-tg">@maritarasiuk</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
